@@ -14,8 +14,15 @@ function App() {
     <>
       <div></div>
       <h1>「学習記録一覧」</h1>
+      <div className='inputTitleForm'>
+        <label htmlFor="studyContents">学習内容：</label>
+        <input type="text"/>
+      </div>
+      <div className='inputTimeForm'>
+        <label htmlFor="studyContents">学習時間：</label>
+        <input type="number" min={1}/>
+      </div>
       <div className="card">
-        <p>Hellow World</p>
         <ul>
           {records.map((record, index) => (
             <li key={index}>
