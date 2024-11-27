@@ -30,12 +30,15 @@ function App() {
       setShowError(true); //エラーを表示
       return;
     }
-    const newRecords = [...records,{title:title,time:time}];
+    const newRecords = [...records,{title:title,time:Number(time)}];
     setRecords(newRecords);
     setTitle("");
     setTime("");
     setShowError(false); //登録成功時にエラーメッセージを非表示にする
   }
+
+  // 学習時間の合計を計算
+  const totalTime = records.reduce((sum,record) => sum + record.time, 0)
 
   return (
     <>
@@ -74,6 +77,9 @@ function App() {
             </li>
           ))}
         </ul>
+      </div>
+      <div>
+        <p>合計学習時間:{totalTime}時間</p>
       </div>
     </>
   );
