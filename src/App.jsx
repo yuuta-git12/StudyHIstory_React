@@ -20,7 +20,7 @@ function App() {
           {records.map((record, index) => (
             <li key={index}>
               <p>
-                タイトル：{record.title}　時間:{record.time}時間
+                タイトル：{record.title} 時間:{record.time}時間
               </p>
             </li>
           ))}
