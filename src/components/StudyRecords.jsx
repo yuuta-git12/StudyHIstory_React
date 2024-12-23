@@ -15,7 +15,11 @@ export const StudyRecords = () => {
                 if(error){
                     console.error('Error fetching users:',error);
                 }else{
-                    setStudyRecords(data);
+                  if (Array.isArray(data)) {
+                    setStudyRecords(data); // そのまま配列として設定
+                  } else {
+                    console.warn("Unexpected data format:", data);
+                  }
                 }
 
             }catch(error){
@@ -32,7 +36,7 @@ export const StudyRecords = () => {
         <>
         <div className="card">
         <ul>
-          {studyRecords.map((record) => (
+          {studyRecords.map(record => (
             <li key={record.id}>
               <p>
                 タイトル：{record.title} 学習時間:{record.time}時間
