@@ -30,6 +30,27 @@ export const StudyRecords = () => {
         };
         fectchUsers();
     },[]);
+
+    // レコードを削除するための関数
+    const handleDelete = async(id) => {
+      try {
+          const { error } = await supabase
+          .from('study-record')
+          .delete()
+          .eq("id",id) //指定したidのレコードを削除
+
+          if(error){
+              console.error("Error deleting record:", error);
+          }else{
+              // ローカルの状態を更新してリストを反映
+              setStudyRecords(studyRecords.filter(record => record.id !== id));
+          }
+      }catch(error){
+          console.error("Unexpected error:", error);
+      }
+      
+    };
+
     if (loading) return <p>Loading....</p>;
 
     return(
@@ -40,6 +61,7 @@ export const StudyRecords = () => {
             <li key={record.id}>
               <p>
                 タイトル：{record.title} 学習時間:{record.time}時間
+                <button onClick={()=>handleDelete(record.id)}>削除</button>
               </p>
             </li>
           ))}
