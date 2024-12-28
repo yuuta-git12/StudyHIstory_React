@@ -1,39 +1,37 @@
 import React,{ useEffect, useState} from "react";
 import { supabase } from "../supabaseClient";
 
-export const StudyRecords = () => {
-    const [studyRecords, setStudyRecords] = useState([]);
+export const StudyRecords = ({ studyRecords,onRecordDeleted }) => {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        const fectchUsers = async() =>{
-            try{
-                const { data, error } = await supabase
-                .from('study-record')
-                .select('*');
+      // 初回データ取得時のローディング制御
+      const fetchData = async () => {
+          try {
+              setLoading(true); // ローディング開始
+              const { data, error } = await supabase.from("study-record").select("*");
 
-                if(error){
-                    console.error('Error fetching users:',error);
-                }else{
-                  if (Array.isArray(data)) {
-                    setStudyRecords(data); // そのまま配列として設定
-                  } else {
-                    console.warn("Unexpected data format:", data);
-                  }
-                }
+              if (error) {
+                  console.error("Error fetching records:", error);
+              } else if (Array.isArray(data)) {
+                  setStudyRecords(data); // データのセット
+              } else {
+                  console.warn("Unexpected data format:", data);
+              }
+          } catch (error) {
+              console.error("Unexpected error:", error);
+          } finally {
+              setLoading(false); // ローディング終了
+          }
+      };
 
-            }catch(error){
-                console.error('Unexpected error:',error);
-            }finally{
-                setLoading(false);
-            }
-        };
-        fectchUsers();
-    },[]);
-
+      fetchData();
+  }, [onRecordDeleted]); //onRecordDeletedの値が変化するたびにuseEffectが実行される
+    
     // レコードを削除するための関数
     const handleDelete = async(id) => {
       try {
+          setLoading(true); 
           const { error } = await supabase
           .from('study-record')
           .delete()
@@ -42,18 +40,19 @@ export const StudyRecords = () => {
           if(error){
               console.error("Error deleting record:", error);
           }else{
-              // ローカルの状態を更新してリストを反映
-              setStudyRecords(studyRecords.filter(record => record.id !== id));
+              console.log("レコードが削除されました");
+              onRecordDeleted(); //データ更新を親コンポーネントに通知
           }
       }catch(error){
           console.error("Unexpected error:", error);
+      }finally{
+        setLoading(false);
       }
       
     };
 
     // 合計学習時間の計算
     const totalStudyTime = studyRecords.reduce((sum, record) => sum + (parseInt(record.time, 10) || 0), 0);
-
 
     if (loading) return <p>Loading....</p>;
 
