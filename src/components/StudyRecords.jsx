@@ -3,7 +3,7 @@ import { supabase } from "../supabaseClient";
 
 export const StudyRecords = () => {
     const [studyRecords, setStudyRecords] = useState([]);
-    const [loading, setLoading] = useState();
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         const fectchUsers = async() =>{
@@ -51,6 +51,10 @@ export const StudyRecords = () => {
       
     };
 
+    // 合計学習時間の計算
+    const totalStudyTime = studyRecords.reduce((sum, record) => sum + (parseInt(record.time, 10) || 0), 0);
+
+
     if (loading) return <p>Loading....</p>;
 
     return(
@@ -68,7 +72,7 @@ export const StudyRecords = () => {
         </ul>
       </div>
       <div>
-        <p>合計学習時間:時間</p>
+        <p>合計学習時間:{totalStudyTime}時間</p>
       </div>
         </>
     )
