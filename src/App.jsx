@@ -30,7 +30,7 @@ export const App = () => {
 
   return (
     <SDiv>
-      <h1>学習記録管理</h1>
+      <h1>学習記録管理_デプロイ版</h1>
       <AddRecordForm onRecordAdded={fectchRecords}/>
       <StudyRecords studyRecords={studyRecords} onRecordDeleted={fectchRecords}/>
     </SDiv>
