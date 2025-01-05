@@ -29,16 +29,18 @@ export const AddRecordForm = ({ onRecordAdded }) => {
     return(
         <form onSubmit={handleSubmit}>
             <div className='inputTitleForm'>
-                <label htmlFor="studyContents">学習内容：</label>
-                <input 
+                <label htmlFor="title">学習内容：</label>
+                <input
+                    id="title"
                     type="text" 
                     value={formData.title}
                     onChange={(e)=>setFormData({...formData,title: e.target.value})}
                 />
             </div>
             <div className='inputTimeForm'>
-                <label htmlFor="studyContents">学習時間：</label>
+                <label htmlFor="time">学習時間：</label>
                 <input
+                    id="time"
                     type="number" 
                     min={1} 
                     value={formData.time}
