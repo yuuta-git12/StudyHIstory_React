@@ -3,5 +3,6 @@ module.exports = {
     transform: {
       "^.+\\.[tj]sx?$": "babel-jest",
     },
+    "setupFiles": ["<rootDir>/src/setupTests.js"]
   };
   
