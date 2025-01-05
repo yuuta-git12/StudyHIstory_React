@@ -3,6 +3,7 @@ import { supabase } from "../supabaseClient";
 
 export const StudyRecords = ({ studyRecords,onRecordDeleted }) => {
     const [loading, setLoading] = useState(true);
+    const [records, setRecords] = useState(studyRecords);
 
     useEffect(() => {
       // 初回データ取得時のローディング制御
@@ -14,7 +15,7 @@ export const StudyRecords = ({ studyRecords,onRecordDeleted }) => {
               if (error) {
                   console.error("Error fetching records:", error);
               } else if (Array.isArray(data)) {
-                  setStudyRecords(data); // データのセット
+                  setRecords(data); // データのセット
               } else {
                   console.warn("Unexpected data format:", data);
               }
@@ -52,7 +53,7 @@ export const StudyRecords = ({ studyRecords,onRecordDeleted }) => {
     };
 
     // 合計学習時間の計算
-    const totalStudyTime = studyRecords.reduce((sum, record) => sum + (parseInt(record.time, 10) || 0), 0);
+    const totalStudyTime = records.reduce((sum, record) => sum + (parseInt(record.time, 10) || 0), 0);
 
     if (loading) return <p>Loading....</p>;
 

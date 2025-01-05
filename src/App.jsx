@@ -19,7 +19,7 @@ export const App = () => {
       }else{
         console.warn("データ形式に誤りがあります:",data);
       }
-    }catch{
+    }catch(error){
       console.error("例外が発生しました:",error);
     }
   };
