@@ -8,7 +8,7 @@
     "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "test": "jest"
+    "test": "node --expose-gc ./node_modules/.bin/jest"
   },
   "dependencies": {
     "@babel/core": "^7.26.0",
