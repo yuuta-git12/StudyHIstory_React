@@ -23,8 +23,8 @@ jobs:
 
     - name: Set environment variables
       run: |
-        echo "REACT_VITE_APP_SUPABASE_URL=${{ secrets.SUPABASE_URL }}" >> $GITHUB_ENV
-        echo "REACT_VITE_APP_SUPABASE_API_KEY=${{ secrets.SUPABASE_API_KEY }}" >> $GITHUB_ENV
+        echo "VITE_REACT_APP_SUPABASE_ANON_KEY=${{ secrets.SUPABASE_API_KEY }}" >> .env
+        echo "VITE_REACT_APP_SUPABASE_URL=${{ secrets.SUPABASE_URL }}" >> .env
 
     - name: Install dependencies
       run: npm install
