@@ -41,7 +41,6 @@ export const StudyRecords = ({ studyRecords,onRecordDeleted }) => {
           if(error){
               console.error("Error deleting record:", error);
           }else{
-              console.log("レコードが削除されました");
               onRecordDeleted(); //データ更新を親コンポーネントに通知
           }
       }catch(error){

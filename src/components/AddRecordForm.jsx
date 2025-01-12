@@ -19,7 +19,6 @@ export const AddRecordForm = ({ onRecordAdded }) => {
         if(error){
             console.error('Error adding record:',error);
         }else{
-            console.log('レコードが追加されました:',data);
             setFormData({title:'',time:''}); //フォームのリセット
             setShowError(false); //登録成功時にエラーメッセージを非表示にする
             onRecordAdded(); //データ更新を親コンポーネントに通知
@@ -34,6 +33,7 @@ export const AddRecordForm = ({ onRecordAdded }) => {
                     id="title"
                     type="text" 
                     value={formData.title}
+                    placeholder="学習内容"
                     onChange={(e)=>setFormData({...formData,title: e.target.value})}
                 />
             </div>
@@ -44,6 +44,7 @@ export const AddRecordForm = ({ onRecordAdded }) => {
                     type="number" 
                     min={1} 
                     value={formData.time}
+                    placeholder="学習時間"
                     onChange={(e)=>setFormData({...formData,time: e.target.value})}
                 />
             </div>
