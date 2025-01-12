@@ -12,6 +12,10 @@ jobs:
   test:
     runs-on: ubuntu-latest
 
+    strategy:
+    matrix:
+      node-version: ['18.x']
+
     steps:
     - name: Checkout code
       uses: actions/checkout@v4
@@ -20,6 +24,12 @@ jobs:
       uses: actions/setup-node@v3
       with:
         node-version: '16'
+
+    - name: Use Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18.x'
+
 
     - name: Set environment variables
       run: |
@@ -30,4 +40,4 @@ jobs:
       run: npm install
 
     - name: Run tests
-      run: npm test -- --detectOpenHandles
+      run: npm test
