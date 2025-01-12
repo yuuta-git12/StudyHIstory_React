@@ -13,31 +13,25 @@ jobs:
     runs-on: ubuntu-latest
 
     strategy:
-    matrix:
-      node-version: ['18.x']
+      matrix:
+        node-version: ['18.x']
 
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v4
+      - name: Checkout code
+        uses: actions/checkout@v4
 
-    - name: Set up Node.js
-      uses: actions/setup-node@v3
-      with:
-        node-version: '16'
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
 
-    - name: Use Node.js
-      uses: actions/setup-node@v4
-      with:
-        node-version: '18.x'
+      - name: Set environment variables
+        run: |
+          echo "VITE_REACT_APP_SUPABASE_ANON_KEY=${{ secrets.SUPABASE_API_KEY }}" >> .env
+          echo "VITE_REACT_APP_SUPABASE_URL=${{ secrets.SUPABASE_URL }}" >> .env
 
+      - name: Install dependencies
+        run: npm install
 
-    - name: Set environment variables
-      run: |
-        echo "VITE_REACT_APP_SUPABASE_ANON_KEY=${{ secrets.SUPABASE_API_KEY }}" >> .env
-        echo "VITE_REACT_APP_SUPABASE_URL=${{ secrets.SUPABASE_URL }}" >> .env
-
-    - name: Install dependencies
-      run: npm install
-
-    - name: Run tests
-      run: npm test
+      - name: Run tests
+        run: npm test
