@@ -1,9 +1,5 @@
-// // src/setupTests.js
-const SUPABASE_URL = process.env.VITE_REACT_APP_SUPABASE_URL;
-const SUPABASE_API_KEY = process.env.VITE_REACT_APP_SUPABASE_API_KEY;
+import doetenv from 'dotenv';
 
-if (!SUPABASE_URL || !SUPABASE_API_KEY) {
-  throw new Error('Supabase URL または API キーが見つかりません！');
-}
+// .envファイルの変数をprocess.env(supabaseのURLとAPIキーを含む)にロード
+doetenv.config();
 
-export { SUPABASE_URL, SUPABASE_API_KEY };
